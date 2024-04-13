@@ -1,0 +1,29 @@
+### POST "Hello!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Hello!"
+}
+
+### POST "Bonjour!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Bonjour!"
+}
+
+### POST "Privet!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Privet!"
+}
+
+### GET all messages
+GET http://localhost:8080/
+
+### GET specific message
+GET http://localhost:8080/419466ca-761d-44ab-aaa6-d14e9c97f959
