@@ -1,27 +1,25 @@
 package ft.etachott.simple_crud.services
 
-import ft.etachott.simple_crud.controllers.Message
-import org.springframework.jdbc.core.JdbcTemplate
+import ft.etachott.simple_crud.models.Message
+import ft.etachott.simple_crud.repositories.MessageRepository
 import org.springframework.stereotype.Service
-import org.springframework.jdbc.core.query
 import java.util.*
 
 @Service
-class MessageService(val db: JdbcTemplate) {
-    fun findMessages(): List<Message> = db.query("select * from messages") { response, _ ->
-        Message(response.getString("id"), response.getString("text"))
-    }
+class MessageService(val db: MessageRepository) {
+    fun findMessages(): List<Message> = db.findAll().toList()
 
-    fun findMessageById(id: String): List<Message> =
-        db.query("select * from messages where id = ?", id) { response, _ ->
-            Message(response.getString("id"), response.getString("text"))
+    fun findMessageById(id: String): List<Message> = db.findById(id).toList()
+
+    fun save(message: Message) = db.save(message)
+
+    fun <T: Any> Optional<out T>.toList(): List<T> = if (isPresent) listOf(get()) else emptyList()
+
+    fun delete(id: String) = db.deleteById(id)
+
+    fun patch(id: String, message: Message) {
+        findMessageById(id).map {
+            db.save(Message(id, message.text))
         }
-
-    fun save(message: Message) {
-        val id = message.id ?: UUID.randomUUID().toString()
-        db.update(
-            "insert into messages values (?, ?)",
-            id, message.text
-        )
     }
 }

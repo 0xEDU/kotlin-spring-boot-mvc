@@ -26,4 +26,15 @@ Content-Type: application/json
 GET http://localhost:8080/
 
 ### GET specific message
-GET http://localhost:8080/419466ca-761d-44ab-aaa6-d14e9c97f959
+GET http://localhost:8080/061af181-832a-4956-b662-7885b11ca76c
+
+### DELETE specific messsage
+DELETE http://localhost:8080/29cfc69f-3b7d-4060-8fb6-847172e38611
+
+### PATCH specific message
+PATCH http://localhost:8080/061af181-832a-4956-b662-7885b11ca76c
+Content-Type: application/json
+
+{
+  "text": "tomale"
+}
